@@ -1,0 +1,88 @@
+.navbar {
+  background-color: #1e1c1c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.navRoutes{
+  display: flex;
+  width: 30%;
+}
+.navItem {
+  margin-right: 20px;
+  font-size: 16px;
+
+}
+
+.navItem a {
+  color: white;
+  text-decoration: none;
+
+}
+.profileIcon {
+  position: relative;
+  cursor: pointer;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.profileInitials {
+  display: block;
+}
+
+.profileOptions {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 150px;
+  background-color: #fff;
+  color: black;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+
+.profileIcon:hover .profileOptions {
+  display: block;
+}
+
+.profileOptions li {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profileOptions a {
+  text-decoration: none;
+  color: black;
+}
+
+.profileOptions li:hover {
+  background-color: #eee;
+}

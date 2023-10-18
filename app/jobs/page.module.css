@@ -1,0 +1,45 @@
+.jobListContainer {
+  text-align: center;
+}
+
+.jobListHeader {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.jobList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.infoBoxContainer{
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.info{
+  display: flex;
+  align-items: center;
+}
+
+.boxColor{
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+.darkRed {
+  background-color: darkred;
+}
+.lightRed {
+  background-color: lightcoral;
+}
+.greenLight {
+  background-color: lightgreen;
+}
+.darkGreen {
+  background-color: darkgreen;
+}
