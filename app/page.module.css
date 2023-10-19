@@ -11,6 +11,17 @@
   margin-top: 200px;
 }
 
+.container{
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.container a{
+  text-decoration: none;
+}
+
 .inputField {
   width: 100%;
   padding: 10px;

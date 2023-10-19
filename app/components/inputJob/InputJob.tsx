@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import styles from './InputJob.module.css'
+import { RootState } from '@/app/reduxStore/reducers/userReducer'
+import { useSelector } from 'react-redux'
 
 const InputJobForm = (): JSX.Element => {
+  const user = useSelector((state: RootState) => state.user)
+
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -18,9 +22,10 @@ const InputJobForm = (): JSX.Element => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const userId = user.id
+    const job = { userId, ...formData, answered: false, interviewed: false }
     try {
-      const job = { ...formData, answered: false, interviewed: false }
-      const response = await axios.post('http://localhost:5000/job', job)
+      const response = await axios.post('http://localhost:5000/postJob', job)
       console.log('Registration successful', response.data)
 
       setFormData({

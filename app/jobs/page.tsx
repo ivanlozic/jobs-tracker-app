@@ -1,42 +1,28 @@
-import React from 'react'
+'use client'
+import React, { useState, useEffect } from 'react'
 import JobItem from '../components/jobItem/JobItem'
 import styles from './page.module.css'
 import Navbar from '../components/navbar/Navbar'
-
-const jobList = [
-  {
-    id: 1,
-    title: 'Frontend Developer',
-    company: 'Tech Co.',
-    location: 'New York, NY',
-    dateOfExpiration: '2023-09-30',
-    websiteLink: 'https://example.com/job1',
-    answered: false,
-    interviewed: false
-  },
-  {
-    id: 2,
-    title: 'Backend Developer',
-    company: 'Web Solutions',
-    location: 'San Francisco, CA',
-    dateOfExpiration: '2023-11-30',
-    websiteLink: 'https://example.com/job2',
-    answered: true,
-    interviewed: false
-  },
-  {
-    id: 3,
-    title: 'UI/UX Designer',
-    company: 'Design Studio',
-    location: 'Los Angeles, CA',
-    dateOfExpiration: '2023-12-15',
-    websiteLink: 'https://example.com/job3',
-    answered: false,
-    interviewed: false
-  }
-]
+import { RootState } from '../reduxStore/reducers/userReducer'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 const JobList = (): JSX.Element => {
+  const [jobList, setJobList] = useState([])
+  const user = useSelector((state: RootState) => state.user)
+
+  useEffect(() => {
+    const userId = user.id
+    axios
+      .get(`http://localhost:5000/userJobs/${userId}`)
+      .then((response) => {
+        setJobList(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching job data:', error)
+      })
+  }, [user.id])
+
   return (
     <div className={styles.jobListContainer}>
       <Navbar />
@@ -62,8 +48,8 @@ const JobList = (): JSX.Element => {
 
       <h1 className={styles.jobListHeader}>Job Listings</h1>
       <div className={styles.jobList}>
-        {jobList.map((job) => (
-          <JobItem key={job.id} job={job} />
+        {jobList.map((job, index) => (
+          <JobItem key={index} job={job} />
         ))}
       </div>
     </div>

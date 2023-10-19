@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-const storedToken = localStorage.getItem('authToken')
-const storedUserData = localStorage.getItem('userData')
+const storedToken = localStorage.getItem('authToken') ?? ''
+const storedUserData = localStorage.getItem('userData') ?? ''
 
 interface UserState {
   isLoggedIn: boolean
@@ -68,8 +68,7 @@ export const userSlice = createSlice({
       localStorage.removeItem('userData')
     },
     updateProfile: (state, action) => {
-      const { name, surname, email, username,password  } =
-        action.payload
+      const { name, surname, email, username, password } = action.payload
       state.name = name
       state.surname = surname
       state.email = email
