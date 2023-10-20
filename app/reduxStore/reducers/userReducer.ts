@@ -10,7 +10,8 @@ interface UserState {
   surname: string
   email: string
   username: string
-  password: string
+  password: string,
+  jobs:[]
 }
 
 export interface RootState {
@@ -25,7 +26,8 @@ const initialState = {
   surname: '',
   email: '',
   username: '',
-  password: ''
+  password: '',
+  jobs:[]
 }
 
 if (storedUserData) {
@@ -36,6 +38,7 @@ if (storedUserData) {
   initialState.email = userData.email
   initialState.username = userData.username
   initialState.password = userData.password
+  initialState.jobs = userData.jobs
 }
 
 export const userSlice = createSlice({
@@ -50,6 +53,7 @@ export const userSlice = createSlice({
       state.email = action.payload.user.email
       state.username = action.payload.user.username
       state.password = action.payload.user.password
+      state.jobs = action.payload.user.jobs
 
       localStorage.setItem('authToken', action.payload.token)
       localStorage.setItem('userData', JSON.stringify(action.payload.user))
@@ -63,17 +67,19 @@ export const userSlice = createSlice({
       state.email = ''
       state.username = ''
       state.password = ''
+      state.jobs = []
 
       localStorage.removeItem('authToken')
       localStorage.removeItem('userData')
     },
     updateProfile: (state, action) => {
-      const { name, surname, email, username, password } = action.payload
+      const { name, surname, email, username, password, jobs } = action.payload
       state.name = name
       state.surname = surname
       state.email = email
       state.username = username
       state.password = password
+      state.jobs = jobs
     }
   }
 })

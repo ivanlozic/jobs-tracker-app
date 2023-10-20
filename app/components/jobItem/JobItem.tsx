@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 
 interface JobItemProps {
   job: {
-    id: number
+    jobId: number
     title: string
     company: string
     location: string
@@ -56,7 +56,7 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
   const formattedDate = formatDate(job.dateOfExpiration)
   return (
     <div className={` ${styles[statusClass]} `}>
-      <h3 className={styles.id}>{job.id}</h3>
+      <h3 className={styles.id}>{job.jobId}</h3>
       <h3 className={styles.title}>{job.title}</h3>
       <p className={styles.company}>Company: {job.company}</p>
       <p className={styles.location}>Location: {job.location}</p>
@@ -66,7 +66,7 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
         <h3>Answered: {job.answered ? 'Yes' : 'No'}</h3>
         <h3>Interviewed: {job.interviewed ? 'Yes' : 'No'}</h3>
         {!expired && job.answered === false && (
-          <Link href='/jobs/[id]' as={`/jobs/${job.id}`}>
+          <Link href='/jobs/[id]' as={`/jobs/${job.jobId}`}>
             <button className={styles.editButton}>Edit</button>
           </Link>
         )}
