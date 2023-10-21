@@ -22,31 +22,59 @@ const JobDetail = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user)
-  const [job, setJob] = useState<JobItemProps | null>(null)
-
+  const [formattedDate, setFormattedDate] = useState('')
+  const [jobId, setJobId] = useState(0)
+  const [title, setTitle] = useState('')
+  const [company, setCompany] = useState('')
+  const [location, setLocation] = useState('')
+  const [dateOfExpiration, setDateOfExpiration] = useState('')
+  const [websiteLink, setWebsiteLink] = useState('')
   const [answered, setAnswered] = useState(false)
   const [interviewed, setInterviewed] = useState(false)
-  const [formattedDate, setFormattedDate] = useState('')
 
   useEffect(() => {
     const selectedJob = user.jobs.find(
       (job: JobItemProps) => job.jobId === Number(id)
     )
-    console.log(selectedJob,id)
-    console.log(user.jobs)
     if (selectedJob) {
-      setJob(selectedJob as JobItemProps)
-      setAnswered((selectedJob as JobItemProps).answered)
-      setInterviewed((selectedJob as JobItemProps).interviewed)
-    } else {
-      setJob(null)
+      const {
+        jobId,
+        title,
+        company,
+        location,
+        dateOfExpiration,
+        websiteLink,
+        answered,
+        interviewed
+      } = selectedJob
+
+      setJobId(jobId)
+      setTitle(title)
+      setCompany(company)
+      setLocation(location)
+      setDateOfExpiration(dateOfExpiration)
+      setWebsiteLink(websiteLink)
+      setAnswered(answered)
+      setInterviewed(interviewed)
     }
   }, [id, user.jobs])
+
   const handleUpdateJob = async () => {
+    const updatedJob = {
+      jobId,
+      title,
+      company,
+      location,
+      dateOfExpiration,
+      websiteLink,
+      answered,
+      interviewed
+    }
+    const userId = user.id
+    console.log(userId)
     try {
-      const updatedJob = { ...job, answered, interviewed }
       const response = await axios.put(
-        `http://localhost:5000/editJob/${id}`,
+        `http://localhost:5000/editJob/${userId}`,
         updatedJob
       )
 
@@ -62,36 +90,38 @@ const JobDetail = () => {
   return (
     <div className={styles.editJobContainer}>
       <div>
-        <h3 className={styles.id}>{job?.jobId}</h3>
-        <h3 className={styles.title}>{job?.title}</h3>
-        <p className={styles.company}>Company: {job?.company}</p>
-        <p className={styles.location}>Location: {job?.location}</p>
+        <h3 className='id'>{jobId}</h3>
+        <h3 className='title'>{title}</h3>
+        <p className='company'>Company: {company}</p>
+        <p className='location'>Location: {location}</p>
         <div>
           <h3>Date until expiration: {formattedDate}</h3>
-          <h3>Link of the job announcement: {job?.websiteLink}</h3>
-          <h3>Answered: {job?.answered ? 'Yes' : 'No'}</h3>
-          <h3>Interviewed: {job?.interviewed ? 'Yes' : 'No'}</h3>
+          <h3>Link of the job announcement: {websiteLink}</h3>
+          <h3>Answered: {answered ? 'Yes' : 'No'}</h3>
+          <h3>Interviewed: {interviewed ? 'Yes' : 'No'}</h3>
         </div>
       </div>
 
-      <h1>Edit Job</h1>
-      <label>
-        Answered:
-        <input
-          type='checkbox'
-          checked={answered}
-          onChange={() => setAnswered(!answered)}
-        />
-      </label>
-      <label>
-        Interviewed:
-        <input
-          type='checkbox'
-          checked={interviewed}
-          onChange={() => setInterviewed(!interviewed)}
-        />
-      </label>
-      <button onClick={handleUpdateJob}>Update Job</button>
+      <div>
+        <label>
+          Answered:
+          <input
+            type='checkbox'
+            checked={answered}
+            onChange={() => setAnswered(!answered)}
+          />
+        </label>
+        <label>
+          Interviewed:
+          <input
+            type='checkbox'
+            checked={interviewed}
+            onChange={() => setInterviewed(!interviewed)}
+          />
+        </label>
+
+        <button onClick={handleUpdateJob}>Update Job</button>
+      </div>
     </div>
   )
 }
