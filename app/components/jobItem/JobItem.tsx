@@ -18,16 +18,14 @@ interface JobItemProps {
   }
 }
 
-
-const formatDate = (dateString:string) => {
-  const parts = dateString.split('T')[0].split('-');
+const formatDate = (dateString: string) => {
+  const parts = dateString.split('T')[0].split('-')
   if (parts.length === 3) {
-    const [year, month, day] = parts;
-    return `${month}/${day}/${year}`;
+    const [year, month, day] = parts
+    return `${month}/${day}/${year}`
   }
-  return dateString; 
-};
-
+  return dateString
+}
 
 const JobItem = ({ job }: JobItemProps): JSX.Element => {
   const [expired, setExpired] = useState(false)
@@ -43,9 +41,9 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
   let statusClass = ''
   if (expired && !job.answered) {
     statusClass = 'darkRed'
-  } else if (expired || (job.answered && !job.interviewed)) {
+  } else if (expired || (expired && job.answered && !job.interviewed)) {
     statusClass = 'lightRed'
-  } else if (job.answered && !job.interviewed) {
+  } else if (!expired && job.answered && !job.interviewed) {
     statusClass = 'greenLight'
   } else if (job.answered && job.interviewed) {
     statusClass = 'darkGreen'
@@ -65,7 +63,7 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
         <h3>Link of the job announcement: {job.websiteLink}</h3>
         <h3>Answered: {job.answered ? 'Yes' : 'No'}</h3>
         <h3>Interviewed: {job.interviewed ? 'Yes' : 'No'}</h3>
-        {!expired && job.answered === false && (
+        {!expired && job.interviewed === false && (
           <Link href='/jobs/[id]' as={`/jobs/${job.jobId}`}>
             <button className={styles.editButton}>Edit</button>
           </Link>
