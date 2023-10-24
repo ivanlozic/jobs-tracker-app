@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../reduxStore/reducers/userReducer'
 import styles from './page.module.css'
+import axios from 'axios'
+
 
 const EditProfilePage: React.FC = () => {
   const dispatch = useDispatch()
@@ -24,7 +26,17 @@ const EditProfilePage: React.FC = () => {
     }))
   }
 
-  const handleUpdateProfile = () => {}
+  const handleUpdateProfile = () => {
+    axios.put(`/editProfile/${user.id}`, formData)
+      .then((response) => {
+        
+        console.log('Profile updated successfully')
+        
+      })
+      .catch((error) => {
+        console.error('Profile update failed:', error.response.data.message)
+      })
+  }
 
   return (
     <div className={styles.container}>
