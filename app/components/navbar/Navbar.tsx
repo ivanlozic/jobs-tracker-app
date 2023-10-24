@@ -40,7 +40,7 @@ const Navbar = (): JSX.Element => {
             </div>
             {showProfileOptions && (
               <ul className={styles.profileOptions}>
-                <Link href='/editProfilePage'>
+                <Link href='/editProfile'>
                   <li>Edit Profile Page</li>
                 </Link>
                 <li onClick={handleLogout}>Logout</li>
