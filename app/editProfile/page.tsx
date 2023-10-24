@@ -27,7 +27,7 @@ const EditProfilePage: React.FC = () => {
   }
 
   const handleUpdateProfile = () => {
-    axios.put(`/editProfile/${user.id}`, formData)
+    axios.put(`http://localhost:5000/editProfile/${user.id}`, formData)
       .then((response) => {
         
         console.log('Profile updated successfully')
