@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../reduxStore/reducers/userReducer'
 import styles from './page.module.css'
 import axios from 'axios'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useRouter } from 'next/navigation'
 
 const EditProfilePage: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user)
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
     name: user.name,
@@ -27,11 +30,12 @@ const EditProfilePage: React.FC = () => {
   }
 
   const handleUpdateProfile = () => {
-    axios.put(`http://localhost:5000/editProfile/${user.id}`, formData)
+    axios
+      .put(`http://localhost:5000/editProfile/${user.id}`, formData)
       .then((response) => {
-        
+        toast.success('Profile updated successfully')
+        router.push('/')
         console.log('Profile updated successfully')
-        
       })
       .catch((error) => {
         console.error('Profile update failed:', error.response.data.message)
@@ -96,6 +100,7 @@ const EditProfilePage: React.FC = () => {
           Update Profile
         </button>
       </form>
+      <ToastContainer position='top-right' autoClose={3000} hideProgressBar />
     </div>
   )
 }

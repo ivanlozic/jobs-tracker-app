@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-const storedToken = localStorage.getItem('authToken') ?? ''
+let storedToken = ''
+if (typeof window !== 'undefined') {
+  storedToken = localStorage.getItem('authToken') || ''
+}
+storedToken = localStorage.getItem('authToken') ?? ''
 const storedUserData = localStorage.getItem('userData') ?? ''
 
 interface UserState {
@@ -10,8 +14,8 @@ interface UserState {
   surname: string
   email: string
   username: string
-  password: string,
-  jobs:[]
+  password: string
+  jobs: []
 }
 
 export interface RootState {
@@ -27,7 +31,7 @@ const initialState = {
   email: '',
   username: '',
   password: '',
-  jobs:[]
+  jobs: []
 }
 
 if (storedUserData) {

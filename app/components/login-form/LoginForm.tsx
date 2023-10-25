@@ -1,20 +1,12 @@
 import React, { useState, FormEvent } from 'react'
 import classes from './LoginForm.module.css'
 import { useDispatch } from 'react-redux'
-import axios, { AxiosResponse, AxiosError } from 'axios'
+import axios from 'axios'
 import { login } from '@/app/reduxStore/reducers/userReducer'
 import Spinner from '../spinner/Spinner'
 
 interface LoginFormProps {
   onClose: () => void
-}
-
-interface CustomAxiosError extends AxiosError {
-  response?: AxiosResponse & {
-    data: {
-      message: string
-    }
-  }
 }
 
 const LoginForm = ({ onClose }: LoginFormProps): JSX.Element => {

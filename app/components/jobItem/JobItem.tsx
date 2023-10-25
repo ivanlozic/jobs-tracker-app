@@ -22,7 +22,7 @@ const formatDate = (dateString: string) => {
   const parts = dateString.split('T')[0].split('-')
   if (parts.length === 3) {
     const [year, month, day] = parts
-    return `${month}/${day}/${year}`
+    return `${day}/${month}/${year}`
   }
   return dateString
 }

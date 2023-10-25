@@ -1,6 +1,7 @@
 .container {
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 5rem;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -17,17 +18,29 @@
 }
 
 .input {
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 95%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: #999;
 }
 
 .formContainer button {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border-radius: 5px;
+  font-size: 18px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .formContainer button:hover {
