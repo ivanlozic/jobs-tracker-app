@@ -4,6 +4,10 @@ import Navbar from '../navbar/Navbar'
 import styles from './JobItem.module.css'
 import React, { useState, useEffect } from 'react'
 import { format } from 'date-fns'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/app/reduxStore/reducers/userReducer'
+import DeleteConfirmationModal from '../deleteModal/deleteModal'
 
 interface JobItemProps {
   job: {
@@ -30,6 +34,11 @@ const formatDate = (dateString: string) => {
 const JobItem = ({ job }: JobItemProps): JSX.Element => {
   const [expired, setExpired] = useState(false)
 
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false)
+
+  const user = useSelector((state: RootState) => state.user)
+
   useEffect(() => {
     const currentDate = new Date()
     const expirationDate = new Date(job.dateOfExpiration)
@@ -38,6 +47,31 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
     }
   }, [job.dateOfExpiration])
 
+  const handleDeleteJob = () => {
+    setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen)
+  }
+
+  const confirmDelete = () => {
+    const userId = user.id
+    const jobId = job.jobId
+
+    axios
+      .delete(`http://localhost:5000/deleteJob/${userId}/${jobId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          alert('Job deleted successfully')
+        }
+      })
+      .catch((error) => {
+        console.error('Error deleting job:', error)
+      })
+
+    setIsDeleteConfirmationOpen(false)
+  }
+
+  const cancelDelete = () => {
+    setIsDeleteConfirmationOpen(false)
+  }
   let statusClass = ''
   if (expired && !job.answered) {
     statusClass = 'darkRed'
@@ -68,7 +102,17 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
             <button className={styles.editButton}>Edit</button>
           </Link>
         )}
+
+        <button className={styles.deleteButton} onClick={handleDeleteJob}>
+          Delete
+        </button>
       </div>
+
+      <DeleteConfirmationModal
+        isOpen={isDeleteConfirmationOpen}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   )
 }

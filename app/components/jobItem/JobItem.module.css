@@ -51,3 +51,12 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+.deleteButton{
+  border-radius:  10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}

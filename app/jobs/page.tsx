@@ -21,7 +21,7 @@ const JobList = (): JSX.Element => {
       .catch((error) => {
         console.error('Error fetching job data:', error)
       })
-  }, [user.id])
+  }, [user.id,jobList])
 
   return (
     <div className={styles.jobListContainer}>
