@@ -19,6 +19,7 @@ interface JobItemProps {
     websiteLink: string
     answered: boolean
     interviewed: boolean
+    declined: boolean
   }
 }
 
@@ -73,7 +74,7 @@ const JobItem = ({ job }: JobItemProps): JSX.Element => {
     setIsDeleteConfirmationOpen(false)
   }
   let statusClass = ''
-  if (expired && !job.answered) {
+  if ((expired && !job.answered) || job.declined ) {
     statusClass = 'darkRed'
   } else if (expired || (expired && job.answered && !job.interviewed)) {
     statusClass = 'lightRed'

@@ -7,10 +7,38 @@ import { RootState } from '../reduxStore/reducers/userReducer'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 
+interface JobItemProps {
+  jobId: number
+  title: string
+  company: string
+  location: string
+  dateOfExpiration: string
+  websiteLink: string
+  answered: boolean
+  interviewed: boolean
+  declined: boolean
+}
+
 const JobList = (): JSX.Element => {
-  const [jobList, setJobList] = useState([])
+  const [jobList, setJobList] = useState<JobItemProps[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [activeButton, setActiveButton] = useState(1)
+  const itemsPerPage = 5
   const user = useSelector((state: RootState) => state.user)
 
+  const filteredJobList = jobList.filter((job: JobItemProps) => {
+    return job.title.toLowerCase().includes(searchQuery.toLowerCase())
+  })
+
+  const displayJobList = searchQuery ? filteredJobList : jobList
+
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentJobList = filteredJobList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  )
   useEffect(() => {
     const userId = user.id
     axios
@@ -21,7 +49,12 @@ const JobList = (): JSX.Element => {
       .catch((error) => {
         console.error('Error fetching job data:', error)
       })
-  }, [user.id,jobList])
+  }, [user.id, jobList])
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber)
+    setActiveButton(pageNumber)
+  }
 
   return (
     <div className={styles.jobListContainer}>
@@ -47,10 +80,34 @@ const JobList = (): JSX.Element => {
       </div>
 
       <h1 className={styles.jobListHeader}>Job Listings</h1>
+      <input
+        type='text'
+        className={styles.searchInput}
+        placeholder='Search Jobs'
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
       <div className={styles.jobList}>
-        {jobList.map((job, index) => (
+        {currentJobList.map((job, index) => (
           <JobItem key={index} job={job} />
         ))}
+      </div>
+      <div className={styles.pagination}>
+        {Array.from(
+          { length: Math.ceil(displayJobList.length / itemsPerPage) },
+          (_, index) => (
+            <button
+              key={index}
+              className={`${styles.paginationButton} ${
+                activeButton === index + 1 ? styles.active : ''
+              }`}
+              onClick={() => paginate(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   )

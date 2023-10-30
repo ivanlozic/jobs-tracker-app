@@ -23,13 +23,21 @@ const InputJobForm = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const userId = user.id
-    const job = { userId, ...formData, answered: false, interviewed: false }
+    const job = {
+      userId,
+      ...formData,
+      answered: false,
+      interviewed: false,
+      declined: false
+    }
     try {
       const response = await axios.post('http://localhost:5000/postJob', job)
       console.log('Registration successful', response.data)
 
       if (response.status === 200) {
-        alert(`${response.data.message}, you can check it in the Jobs List section.`)
+        alert(
+          `${response.data.message}, you can check it in the Jobs List section.`
+        )
       } else {
         alert('An unexpected error occurred while posting the job.')
       }

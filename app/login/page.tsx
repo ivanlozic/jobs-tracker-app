@@ -27,6 +27,12 @@ const Login = () => {
       console.error('Login failed', error)
     }
   }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLogin()
+    }
+  }
   return (
     <div className={styles.loginContainer}>
       <h1>Login</h1>
@@ -34,6 +40,7 @@ const Login = () => {
         type='text'
         placeholder='Username'
         value={username}
+        onKeyPress={handleKeyPress}
         onChange={(e) => setUsername(e.target.value)}
         className={styles.inputField}
       />
@@ -42,6 +49,7 @@ const Login = () => {
         placeholder='Password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        onKeyPress={handleKeyPress}
         className={styles.inputField}
       />
       <button onClick={handleLogin} className={styles.button}>

@@ -14,19 +14,18 @@
   flex-direction: column;
 }
 
-
-.infoBoxContainer{
+.infoBoxContainer {
   display: flex;
   flex-direction: column;
   margin-left: 30px;
 }
 
-.info{
+.info {
   display: flex;
   align-items: center;
 }
 
-.boxColor{
+.boxColor {
   width: 30px;
   height: 30px;
   margin: 10px;
@@ -42,4 +41,47 @@
 }
 .darkGreen {
   background-color: darkgreen;
+}
+
+.searchInput {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+.searchInput:focus {
+  border: 2px solid #000000;
+  box-shadow: 0 0 5px rgba(7, 7, 7, 0.5);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.paginationButton {
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+.paginationButton:hover {
+  background-color: #ccc;
+}
+
+.paginationButton.active {
+  background-color: #000;
+  color: #fff;
+  border: none;
 }
