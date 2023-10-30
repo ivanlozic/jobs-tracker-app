@@ -61,7 +61,7 @@ const JobList = (): JSX.Element => {
       <Navbar />
       <div className={styles.infoBoxContainer}>
         <div className={styles.info}>
-          <p>1. Expired and not answered </p>
+          <p>1. Expired and not answered, or answered but declined </p>
           <div className={`${styles.boxColor} ${styles.darkRed}`}></div>
         </div>
         <div className={styles.info}>

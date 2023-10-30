@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-let storedToken = ''
-if (typeof window !== 'undefined') {
-  storedToken = localStorage.getItem('authToken') || ''
+let storedToken = '';
+if (typeof window !== 'undefined' && window.localStorage) {
+  storedToken = localStorage.getItem('authToken') || '';
 }
-storedToken = localStorage.getItem('authToken') ?? ''
-const storedUserData = localStorage.getItem('userData') ?? ''
+const storedUserData = localStorage?.getItem('userData') || '';
 
 interface UserState {
   isLoggedIn: boolean
