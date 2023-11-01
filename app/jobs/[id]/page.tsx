@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './page.module.css'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '@/app/reduxStore/reducers/userReducer'
 import Spinner from '@/app/components/spinner/Spinner'
 import { useParams, useRouter } from 'next/navigation'
@@ -22,9 +22,8 @@ interface JobItemProps {
 const JobDetail = () => {
   const router = useRouter()
   const { id } = useParams()
-  const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user)
-  const [formattedDate, setFormattedDate] = useState('')
+  const [formattedDate] = useState('')
   const [jobId, setJobId] = useState(0)
   const [title, setTitle] = useState('')
   const [company, setCompany] = useState('')
@@ -130,6 +129,7 @@ const JobDetail = () => {
           Answered:
           <input
             type='checkbox'
+            name='answered'
             checked={answered}
             onChange={() => setAnswered(!answered)}
           />
@@ -138,6 +138,7 @@ const JobDetail = () => {
           Interviewed:
           <input
             type='checkbox'
+            name='interviewed'
             checked={interviewed}
             onChange={() => setInterviewed(!interviewed)}
           />
@@ -146,6 +147,7 @@ const JobDetail = () => {
           Declined:
           <input
             type='checkbox'
+            name='declined'
             checked={declined}
             onChange={() => setDeclined(!declined)}
           />
