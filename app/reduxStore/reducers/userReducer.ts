@@ -43,7 +43,6 @@ export const userSlice = createSlice({
       state.jobs = action.payload.user.jobs
 
       localStorage.setItem('authToken', action.payload.token)
-      localStorage.setItem('userData', JSON.stringify(action.payload.user))
     },
     logout: (state) => {
       state.isLoggedIn = false
@@ -57,7 +56,6 @@ export const userSlice = createSlice({
       state.jobs = []
 
       localStorage.removeItem('authToken')
-      localStorage.removeItem('userData')
     },
     updateProfile: (state, action) => {
       const { name, surname, email, username, password, jobs } = action.payload
