@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
-let storedToken = '';
-if (typeof window !== 'undefined' && window.localStorage) {
-  storedToken = localStorage.getItem('authToken') || '';
-}
-const storedUserData = localStorage?.getItem('userData') || '';
+let storedToken =
+  typeof window !== 'undefined' && window.localStorage
+    ? localStorage.getItem('authToken')
+    : ''
+
+const storedUserData =
+  typeof window !== 'undefined'
+    ? window.localStorage?.getItem('userData') || ''
+    : ''
 
 interface UserState {
   isLoggedIn: boolean
@@ -22,8 +26,11 @@ export interface RootState {
 }
 
 const initialState = {
-  isLoggedIn: !!storedToken,
-  token: storedToken || '',
+  isLoggedIn: !storedToken,
+  token:
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('authToken')
+      : false,
   id: '',
   name: '',
   surname: '',
