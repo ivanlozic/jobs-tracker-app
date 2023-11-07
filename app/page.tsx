@@ -6,23 +6,28 @@ import { useSelector } from 'react-redux'
 import { RootState } from './reduxStore/reducers/userReducer'
 import styles from './page.module.css'
 
-export default function Home() {
-  const user = useSelector((state: RootState) => state.user)
-
+function LoggedInContent() {
   return (
     <div>
-      {user.isLoggedIn ? (
-        <div>
-          <Navbar />
-          <InputJobForm />
-        </div>
-      ) : (
-        <div className={styles.container}>
-          <p>
-            Please <Link href='/login'>Log In</Link> to access the home page.
-          </p>
-        </div>
-      )}
+      <Navbar />
+      <InputJobForm />
     </div>
-  )
+  );
 }
+
+function NotLoggedInContent() {
+  return (
+    <div className={styles.container}>
+      <p>
+        Please <Link href="/login">Log In</Link> to access the home page.
+      </p>
+    </div>
+  );
+}
+
+export default function Home() {
+  const user = useSelector((state: RootState) => state.user);
+
+  return <div>{user.isLoggedIn ? <LoggedInContent /> : <NotLoggedInContent />}</div>;
+}
+
